@@ -23,7 +23,7 @@ class SuMoTorch(nn.Module):
     survival = self.outcome(torch.cat((x_embed, time_outcome.unsqueeze(1)), 1)) # Compute survival
 
     # Compute gradients
-    intensity = grad(survival.mean(), time_outcome, create_graph = True)[0].unsqueeze(1) if gradient else None
+    intensity = grad(survival.sum(), time_outcome, create_graph = True)[0].unsqueeze(1) if gradient else None
     
     return 1 - survival, intensity
 
